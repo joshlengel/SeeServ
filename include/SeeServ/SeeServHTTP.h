@@ -1,0 +1,273 @@
+#pragma once
+
+#include"SeeServ.h"
+
+// Constants
+enum _SeeServHTTPVersion
+{
+    SEE_SERV_HTTP_VERSION_1_0,
+    SEE_SERV_HTTP_VERSION_1_1,
+    SEE_SERV_HTTP_VERSION_2_0
+};
+typedef enum _SeeServHTTPVersion SeeServHTTPVersion;
+
+const char *see_serv_http_version_str(SeeServHTTPVersion version);
+
+enum _SeeServHTTPMethod
+{
+    SEE_SERV_HTTP_METHOD_CONNECT,
+    SEE_SERV_HTTP_METHOD_DELETE,
+    SEE_SERV_HTTP_METHOD_GET,
+    SEE_SERV_HTTP_METHOD_HEAD,
+    SEE_SERV_HTTP_METHOD_OPTIONS,
+    SEE_SERV_HTTP_METHOD_PATCH,
+    SEE_SERV_HTTP_METHOD_POST,
+    SEE_SERV_HTTP_METHOD_PUT,
+    SEE_SERV_HTTP_METHOD_TRACE
+};
+typedef enum _SeeServHTTPMethod SeeServHTTPMethod;
+
+const char *see_serv_http_method_str(SeeServHTTPMethod method);
+
+enum _SeeServHTTPStatus
+{
+    SEE_SERV_HTTP_STATUS_CONTINUE = 100,
+    SEE_SERV_HTTP_STATUS_SWITCHING_PROTOCOLS = 101,
+    SEE_SERV_HTTP_STATUS_EARLY_HINTS = 103,
+    SEE_SERV_HTTP_STATUS_OK = 200,
+    SEE_SERV_HTTP_STATUS_CREATED = 201,
+    SEE_SERV_HTTP_STATUS_ACCEPTED = 202,
+    SEE_SERV_HTTP_STATUS_NON_AUTHORITATIVE_INFORMATION = 203,
+    SEE_SERV_HTTP_STATUS_NO_CONTENT = 204,
+    SEE_SERV_HTTP_STATUS_RESET_CONTENT = 205,
+    SEE_SERV_HTTP_STATUS_PARTIAL_CONTENT = 206,
+    SEE_SERV_HTTP_STATUS_MULTIPLE_CHOICES = 300,
+    SEE_SERV_HTTP_STATUS_MOVED_PERMANENTLY = 301,
+    SEE_SERV_HTTP_STATUS_FOUND = 302,
+    SEE_SERV_HTTP_STATUS_SEE_OTHER = 303,
+    SEE_SERV_HTTP_STATUS_NOT_MODIFIED = 304,
+    SEE_SERV_HTTP_STATUS_TEMPORARY_REDIRECT = 307,
+    SEE_SERV_HTTP_STATUS_PERMANENT_REDIRECT = 308,
+    SEE_SERV_HTTP_STATUS_BAD_REQUEST = 400,
+    SEE_SERV_HTTP_STATUS_UNAUTHORIZED = 401,
+    SEE_SERV_HTTP_STATUS_PAYMENT_REQUIRED = 402,
+    SEE_SERV_HTTP_STATUS_FORBIDDEN = 403,
+    SEE_SERV_HTTP_STATUS_NOT_FOUND = 404,
+    SEE_SERV_HTTP_STATUS_METHOD_NOT_ALLOWED = 405,
+    SEE_SERV_HTTP_STATUS_NOT_ACCEPTABLE = 406,
+    SEE_SERV_HTTP_STATUS_PROXY_AUTHENTICATION_REQUIRED = 407,
+    SEE_SERV_HTTP_STATUS_REQUEST_TIMEOUT = 408,
+    SEE_SERV_HTTP_STATUS_CONFLICT = 409,
+    SEE_SERV_HTTP_STATUS_GONE = 410,
+    SEE_SERV_HTTP_STATUS_LENGTH_REQUIRED = 411,
+    SEE_SERV_HTTP_STATUS_PRECONDITION_FAILED = 412,
+    SEE_SERV_HTTP_STATUS_PAYLOAD_TOO_LARGE = 413,
+    SEE_SERV_HTTP_STATUS_URI_TOO_LONG = 414,
+    SEE_SERV_HTTP_STATUS_UNSUPPORTED_MEDIA_TYPE = 415,
+    SEE_SERV_HTTP_STATUS_RANGE_NOT_SATISFIABLE = 416,
+    SEE_SERV_HTTP_STATUS_EXPECTATION_FAILED = 417,
+    SEE_SERV_HTTP_STATUS_IM_A_TEAPOT = 418,
+    SEE_SERV_HTTP_STATUS_UNPROCESSABLE_ENTITY = 422,
+    SEE_SERV_HTTP_STATUS_TOO_EARLY = 425,
+    SEE_SERV_HTTP_STATUS_UPGRADE_REQUIRED = 426,
+    SEE_SERV_HTTP_STATUS_PRECONDITION_REQUIRED = 428,
+    SEE_SERV_HTTP_STATUS_TOO_MANY_REQUESTS = 429,
+    SEE_SERV_HTTP_STATUS_REQUEST_HEADER_FIELDS_TOO_LARGE = 431,
+    SEE_SERV_HTTP_STATUS_UNAVAILABLE_FOR_LEGAL_REASONS = 451,
+    SEE_SERV_HTTP_STATUS_INTERNAL_SERVER_ERROR = 500,
+    SEE_SERV_HTTP_STATUS_NOT_IMPLEMENTED = 501,
+    SEE_SERV_HTTP_STATUS_BAD_GATEWAY = 502,
+    SEE_SERV_HTTP_STATUS_SERVICE_UNAVAILABLE = 503,
+    SEE_SERV_HTTP_STATUS_GATEWAY_TIMEOUT = 504,
+    SEE_SERV_HTTP_STATUS_HTTP_VERSION_NOT_SUPPORTED = 505,
+    SEE_SERV_HTTP_STATUS_VARIANT_ALSO_NEGOTIATES = 506,
+    SEE_SERV_HTTP_STATUS_INSUFFICIENT_STORAGE = 507,
+    SEE_SERV_HTTP_STATUS_LOOP_DETECTED = 508,
+    SEE_SERV_HTTP_STATUS_NOT_EXTENDED = 510,
+    SEE_SERV_HTTP_STATUS_NETWORK_AUTHENTICATION_REQUIRED = 511
+};
+typedef enum _SeeServHTTPStatus SeeServHTTPStatus;
+
+const char *see_serv_http_status_str(SeeServHTTPStatus status);
+
+#define SEE_SERV_HTTP_HEADER_ACCEPT "Accept"
+#define SEE_SERV_HTTP_HEADER_ACCEPT_CH "Accept-CH"
+#define SEE_SERV_HTTP_HEADER_ACCEPT_CH_LIFETIME "Accept-CH-Lifetime"
+#define SEE_SERV_HTTP_HEADER_ACCEPT_CHARSET "Accept-Charset"
+#define SEE_SERV_HTTP_HEADER_ACCEPT_ENCODING "Accept-Encoding"
+#define SEE_SERV_HTTP_HEADER_ACCEPT_LANGUAGE "Accept-Language"
+#define SEE_SERV_HTTP_HEADER_ACCEPT_PATCH "Accept-Patch"
+#define SEE_SERV_HTTP_HEADER_ACCEPT_POST "Accept-Post"
+#define SEE_SERV_HTTP_HEADER_ACCEPT_RANGES "Accept-Ranges"
+#define SEE_SERV_HTTP_HEADER_ACCEPT_CONTROL_ALLOW_CREDENTIALS "Accept-Control-Allow-Credentials"
+#define SEE_SERV_HTTP_HEADER_ACCEPT_CONTROL_ALLOW_HEADERS "Accept-Control-Allow-Headers"
+#define SEE_SERV_HTTP_HEADER_ACCEPT_CONTROL_ALLOW_METHODS "Accept-Control-Allow-Methods"
+#define SEE_SERV_HTTP_HEADER_ACCEPT_CONTROL_ALLOW_ORIGIN "Accept-Control-Allow-Origin"
+#define SEE_SERV_HTTP_HEADER_ACCEPT_CONTROL_EXPOSE_HEADERS "Accept-Control-Expose-Headers"
+#define SEE_SERV_HTTP_HEADER_ACCEPT_CONTROL_MAX_AGE "Accept-Control-Max-Age"
+#define SEE_SERV_HTTP_HEADER_ACCEPT_CONTROL_REQUEST_HEADERS "Accept-Control-Request-Headers"
+#define SEE_SERV_HTTP_HEADER_ACCEPT_CONTROL_REQUEST_METHOD "Accept-Control-Request-Method"
+#define SEE_SERV_HTTP_HEADER_AGE "Age"
+#define SEE_SERV_HTTP_HEADER_ALLOW "Allow"
+#define SEE_SERV_HTTP_HEADER_ALT_SVC "Alt-Svc"
+#define SEE_SERV_HTTP_HEADER_AUTHORIZATION "Authorization"
+#define SEE_SERV_HTTP_HEADER_CACHE_CONTROL "Cache-Control"
+#define SEE_SERV_HTTP_HEADER_CLEAR_SITE_DATA "Clear-Site-Data"
+#define SEE_SERV_HTTP_HEADER_CONNECTION "Connection"
+#define SEE_SERV_HTTP_HEADER_CONTENT_DISPOSITION "Content-Disposition"
+#define SEE_SERV_HTTP_HEADER_CONTENT_DPR "Content-DPR"
+#define SEE_SERV_HTTP_HEADER_CONTENT_ENCODING "Content-Encoding"
+#define SEE_SERV_HTTP_HEADER_CONTENT_LANGUAGE "Content-Language"
+#define SEE_SERV_HTTP_HEADER_CONTENT_LENGTH "Content-Length"
+#define SEE_SERV_HTTP_HEADER_CONTENT_LOCATION "Content-Location"
+#define SEE_SERV_HTTP_HEADER_CONTENT_RANGE "Content-Range"
+#define SEE_SERV_HTTP_HEADER_CONTENT_SECURITY_POLICY "Content-Security-Policy"
+#define SEE_SERV_HTTP_HEADER_CONTENT_SECURITY_POLICY_REPORT_ONLY "Content-Security-Policy-Report-Only"
+#define SEE_SERV_HTTP_HEADER_CONTENT_TYPE "Content-Type"
+#define SEE_SERV_HTTP_HEADER_COOKIE "Cookie"
+#define SEE_SERV_HTTP_HEADER_CROSS_ORIGIN_EMBEDDER_POLICY "Cross-Origin-Embedder-Policy"
+#define SEE_SERV_HTTP_HEADER_CROSS_ORIGIN_OPENER_POLICY "Cross-Origin-Opener-Policy"
+#define SEE_SERV_HTTP_HEADER_CROSS_ORIGIN_RESOURCE_POLICY "Cross-Origin-Resource-Policy"
+#define SEE_SERV_HTTP_HEADER_DATE "Date"
+#define SEE_SERV_HTTP_HEADER_DEVICE_MEMORY "Device-Memory"
+#define SEE_SERV_HTTP_HEADER_DIGEST "Digest"
+#define SEE_SERV_HTTP_HEADER_DNT "DNT"
+#define SEE_SERV_HTTP_HEADER_DOWNLINK "Downlink"
+#define SEE_SERV_HTTP_HEADER_DPR "DPR"
+#define SEE_SERV_HTTP_HEADER_EARLY_DATA "Early-Data"
+#define SEE_SERV_HTTP_HEADER_ECT "ECT"
+#define SEE_SERV_HTTP_HEADER_ETAG "ETag"
+#define SEE_SERV_HTTP_HEADER_EXPECT "Expect"
+#define SEE_SERV_HTTP_HEADER_EXPECT_CT "Expect-CT"
+#define SEE_SERV_HTTP_HEADER_EXPIRES "Expires"
+#define SEE_SERV_HTTP_HEADER_FEATURE_POLICY "Feature-Policy"
+#define SEE_SERV_HTTP_HEADER_FORWARDED "Forwarded"
+#define SEE_SERV_HTTP_HEADER_FROM "From"
+#define SEE_SERV_HTTP_HEADER_HOST "Host"
+#define SEE_SERV_HTTP_HEADER_IF_MATCH "If-Match"
+#define SEE_SERV_HTTP_HEADER_IF_MODIFIED_SINCE "If-Modified-Since"
+#define SEE_SERV_HTTP_HEADER_IF_NONE_MATCH "If-None-Match"
+#define SEE_SERV_HTTP_HEADER_IF_RANGE "If-Range"
+#define SEE_SERV_HTTP_HEADER_IF_UNMODIFIED_SINCE "If-Unmodified-Since"
+#define SEE_SERV_HTTP_HEADER_KEEP_ALIVE "Keep-Alive"
+#define SEE_SERV_HTTP_HEADER_LARGE_ALLOCATION "Large-Allocation"
+#define SEE_SERV_HTTP_HEADER_LAST_MODIFIED "Last-Modified"
+#define SEE_SERV_HTTP_HEADER_LINK "Link"
+#define SEE_SERV_HTTP_HEADER_LOCATION "Location"
+#define SEE_SERV_HTTP_HEADER_NEL "NEL"
+#define SEE_SERV_HTTP_HEADER_ORIGIN "Origin"
+#define SEE_SERV_HTTP_HEADER_PRAGMA "Pragma"
+#define SEE_SERV_HTTP_HEADER_PROXY_AUTHENTICATE "Proxy-Authenticate"
+#define SEE_SERV_HTTP_HEADER_PROXY_AUTHORIZATION "Proxy-Authorization"
+#define SEE_SERV_HTTP_HEADER_PUBLIC_KEY_PINS "Public-Key-Pins"
+#define SEE_SERV_HTTP_HEADER_PUBLIC_KEY_PINS_REPORT_ONLY "Public-Key-Pins-Report-Only"
+#define SEE_SERV_HTTP_HEADER_RANGE "Range"
+#define SEE_SERV_HTTP_HEADER_REFERER "Referer"
+#define SEE_SERV_HTTP_HEADER_REFERRER_POLICY "Referrer-Policy"
+#define SEE_SERV_HTTP_HEADER_RETRY_AFTER "Retry-After"
+#define SEE_SERV_HTTP_HEADER_RTT "RTT"
+#define SEE_SERV_HTTP_HEADER_SAVE_DATA "Save-Data"
+#define SEE_SERV_HTTP_HEADER_SEC_CH_UA "Sec-CH-UA"
+#define SEE_SERV_HTTP_HEADER_SEC_CH_UA_ARCH "Sec-CH-UA-Arch"
+#define SEE_SERV_HTTP_HEADER_SEC_CH_UA_BITNESS "Sec-CH-UA-Bitness"
+#define SEE_SERV_HTTP_HEADER_SEC_CH_UA_FULL_VERSION "Sec-CH-UA-Full-Version"
+#define SEE_SERV_HTTP_HEADER_SEC_CH_UA_FULL_VERSION_LIST "Sec-CH-UA-Full-Version-List"
+#define SEE_SERV_HTTP_HEADER_SEC_CH_UA_MOBILE "Sec-CH-UA-Mobile"
+#define SEE_SERV_HTTP_HEADER_SEC_CH_UA_MODEL "Sec-CH-UA-Model"
+#define SEE_SERV_HTTP_HEADER_SEC_CH_UA_PLATFORM "Sec-CH-UA-Platform"
+#define SEE_SERV_HTTP_HEADER_SEC_CH_UA_PLATFORM_VERSION "Sec-CH-UA-Platform-Version"
+#define SEE_SERV_HTTP_HEADER_SEC_FETCH_DEST "Sec-Fetch-Dest"
+#define SEE_SERV_HTTP_HEADER_SEC_FETCH_MODE "Sec-Fetch-Mode"
+#define SEE_SERV_HTTP_HEADER_SEC_FETCH_SITE "Sec-Fetch-Site"
+#define SEE_SERV_HTTP_HEADER_SEC_FETCH_USER "Sec-Fetch-User"
+#define SEE_SERV_HTTP_HEADER_SEC_WEBSOCKET_ACCEPT "Sec-WebSocket-Accept"
+#define SEE_SERV_HTTP_HEADER_SERVER "Server"
+#define SEE_SERV_HTTP_HEADER_SERVER_TIMING "Server-Timing"
+#define SEE_SERV_HTTP_HEADER_SERVICE_WORKER_NAVIGATION_PRELOAD "Service-Worker-Navigation-Preload"
+#define SEE_SERV_HTTP_HEADER_SET_COOKIE "Set-Cookie"
+#define SEE_SERV_HTTP_HEADER_SOURCEMAP "SourceMap"
+#define SEE_SERV_HTTP_HEADER_STRICT_TRANSPORT_SECURITY "Strict-Transport-Security"
+#define SEE_SERV_HTTP_HEADER_TE "TE"
+#define SEE_SERV_HTTP_HEADER_TIMING_ALLOW_ORIGIN "Timing-Allow-Origin"
+#define SEE_SERV_HTTP_HEADER_TK "Tk"
+#define SEE_SERV_HTTP_HEADER_TRAILER "Trailer"
+#define SEE_SERV_HTTP_HEADER_TRANSFER_ENCODING "Transfer-Encoding"
+#define SEE_SERV_HTTP_HEADER_UPGRADE "Upgrade"
+#define SEE_SERV_HTTP_HEADER_UPGRADE_INSECURE_REQUESTS "Upgrade-Insecure-Requests"
+#define SEE_SERV_HTTP_HEADER_USER_AGENT "User-Agent"
+#define SEE_SERV_HTTP_HEADER_VARY "Vary"
+#define SEE_SERV_HTTP_HEADER_VIA "Via"
+#define SEE_SERV_HTTP_HEADER_VIEWPORT_WIDTH "Viewport-Width"
+#define SEE_SERV_HTTP_HEADER_WANT_DIGEST "Want-Digest"
+#define SEE_SERV_HTTP_HEADER_WARNING "Warning"
+#define SEE_SERV_HTTP_HEADER_WIDTH "Width"
+#define SEE_SERV_HTTP_HEADER_WWW_AUTHENTICATE "WWW-Authenticate"
+#define SEE_SERV_HTTP_HEADER_X_CONTENT_TYPE_OPTIONS "X-Content-Type-Options"
+#define SEE_SERV_HTTP_HEADER_X_DNS_PREFETCH_CONTROL "X-DNS-Prefetch-Control"
+#define SEE_SERV_HTTP_HEADER_X_FORWARDED_FOR "X-Forwarded-For"
+#define SEE_SERV_HTTP_HEADER_X_FORWARDED_HOST "X-Forwarded-Host"
+#define SEE_SERV_HTTP_HEADER_X_FORWARDED_PROTO "X-Forwarded-Proto"
+#define SEE_SERV_HTTP_HEADER_X_FRAME_OPTIONS "X-Frame-Options"
+#define SEE_SERV_HTTP_HEADER_X_XSS_PROTECTION "X-XSS-Protection"
+
+// Headers
+struct _SeeServHTTPHeader
+{
+    const char *name;
+    const char *value;
+};
+typedef struct _SeeServHTTPHeader SeeServHTTPHeader;
+
+struct _SeeServHTTPHeaders;
+typedef struct _SeeServHTTPHeaders SeeServHTTPHeaders;
+
+size_t see_serv_http_headers_size(const SeeServHTTPHeaders *headers);
+const char *see_serv_http_headers_get(const SeeServHTTPHeaders *headers, const char *name);
+void see_serv_http_headers_query(const SeeServHTTPHeaders *headers, size_t i, SeeServHTTPHeader *header);
+
+void see_serv_http_headers_set(SeeServHTTPHeaders *headers, const char *name, const char *value);
+void see_serv_http_headers_remove(SeeServHTTPHeaders *headers, const char *name);
+
+// Request and response
+struct _SeeServHTTPRequest
+{
+    SeeServHTTPMethod method;
+    const char *uri;
+    SeeServHTTPVersion version;
+
+    const SeeServHTTPHeaders *headers;
+
+    size_t content_length;
+    const void *content;
+};
+typedef struct _SeeServHTTPRequest SeeServHTTPRequest;
+
+struct _SeeServHTTPResponseBody;
+typedef struct _SeeServHTTPResponseBody SeeServHTTPResponseBody;
+
+struct _SeeServHTTPResponse
+{
+    SeeServHTTPVersion version;
+    SeeServHTTPStatus status;
+
+    SeeServHTTPHeaders *headers;
+
+    SeeServHTTPResponseBody *body;
+};
+typedef struct _SeeServHTTPResponse SeeServHTTPResponse;
+
+void see_serv_http_set_response_body(SeeServHTTPResponse *response, size_t length, const void *body);
+
+struct _SeeServHTTPLayer;
+typedef struct _SeeServHTTPLayer SeeServHTTPLayer;
+
+struct _SeeServHTTPLayerConfig
+{
+    void *userdata;
+    int (*handle_request)(const SeeServHTTPRequest *request, SeeServHTTPResponse *response, void *userdata);
+};
+typedef struct _SeeServHTTPLayerConfig SeeServHTTPLayerConfig;
+
+void see_serv_http_layer_create(const SeeServHTTPLayerConfig *config, SeeServHTTPLayer **layer);
+void see_serv_http_layer_init_handler(SeeServHTTPLayer *layer, SeeServClientHandler *handler);
+void see_serv_http_layer_destroy(SeeServHTTPLayer *layer);

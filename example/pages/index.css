@@ -1,0 +1,30 @@
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
+.button-container {
+    display: flex;
+    padding: 1em;
+}
+
+.left {
+    background-color: red;
+}
+
+.right {
+    background-color: blue;
+}
+
+.button {
+    border: none;
+    background-color: transparent;
+}
+
+.invisible-button {
+    visibility: hidden;
+}
+
+.visible-button {
+    visibility: visible;
+}
