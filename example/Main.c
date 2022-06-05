@@ -90,7 +90,7 @@ int main(int argc, char **argv)
     // Server
     SeeServerConfig conf;
     memset(&conf, 0, sizeof(conf));
-    conf.hostname = "localhost";
+    conf.hostname = "0.0.0.0";
     conf.port = 9090;
 
     SeeServer *server;

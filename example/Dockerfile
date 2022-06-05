@@ -6,7 +6,7 @@ RUN apk add --no-cache build-base cmake git \
     && git clone https://github.com/JoshLengel/SeeServ && cd SeeServ \
     && mkdir build && cd build && cmake -G "Unix Makefiles" .. \
     && make -j4 \
-    && mkdir logs
+    && cd ../example && mkdir logs
 
 EXPOSE 9090
 
