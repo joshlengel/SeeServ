@@ -1,5 +1,6 @@
 #include"SeeServUtils.h"
 
+#include<stdint.h>
 #include<stdlib.h>
 #include<assert.h>
 #include<string.h>
