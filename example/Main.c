@@ -6,6 +6,14 @@
 #include<signal.h>
 #include<string.h>
 
+void handle_err(const char *function, SeeServError err)
+{
+    if (err == SEE_SERV_NONE)
+        return;
+    
+    printf("Error in '%s'\n", function);
+}
+
 int handle_request(const SeeServHTTPRequest *req, SeeServHTTPResponse *res, void *userdata)
 {
     printf("Request made to %s\n", req->uri);
@@ -94,7 +102,7 @@ int main(int argc, char **argv)
     conf.port = 9090;
 
     SeeServer *server;
-    see_server_create(&conf, &server);
+    handle_err("see_server_create", see_server_create(&conf, &server));
 
     // HTTP layer
     SeeServHTTPLayerConfig http_config;
@@ -106,16 +114,17 @@ int main(int argc, char **argv)
 
     SeeServClientHandler handler;
     see_serv_http_layer_init_handler(http_layer, &handler);
-    see_server_add_client_handler(server, &handler);
+    handle_err("see_server_add_client_handler", see_server_add_client_handler(server, &handler));
 
     // Listen
-    see_server_listen(server);
+    handle_err("see_server_listen", see_server_listen(server));
     fgetc(stdin);
 
     // Clean up
-    see_server_destroy(server);
+    handle_err("see_server_destroy", see_server_destroy(server));
 
     see_serv_http_layer_destroy(http_layer);
 
     fclose(log);
+    printf("Terminated\n");
 }
