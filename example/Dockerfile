@@ -10,4 +10,4 @@ RUN apk add --no-cache build-base cmake git \
 
 EXPOSE 9090
 
-ENTRYPOINT [ "example/bin/SeeServ", "example/pages" ]
+ENTRYPOINT [ "SeeServ/example/bin/SeeServExample", "SeeServ/example/pages" ]

@@ -72,13 +72,13 @@ int handle_request(const SeeServHTTPRequest *req, SeeServHTTPResponse *res, void
 
 int main(int argc, char **argv)
 {
-    if (argc != 2)
+    if (argc != 3)
     {
-        printf("Usage: ./SeeServExample [page dir], where [page dir] is the path of the directory containing html pages\n");
+        printf("Usage: ./SeeServExample [log file] [page dir]\n");
         return EXIT_FAILURE;
     }
 
-    FILE *log = fopen("logs/log.txt", "w");
+    FILE *log = fopen(argv[1], "w");
     if (!log)
     {
         perror("Error opening log file: ");
@@ -98,7 +98,7 @@ int main(int argc, char **argv)
 
     // HTTP layer
     SeeServHTTPLayerConfig http_config;
-    http_config.userdata = argv[1];
+    http_config.userdata = argv[2];
     http_config.handle_request = &handle_request;
 
     SeeServHTTPLayer *http_layer;
