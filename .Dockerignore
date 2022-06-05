@@ -1,0 +1,9 @@
+# build
+/build
+/lib
+
+# VS Code
+/.vscode
+
+# example
+/example

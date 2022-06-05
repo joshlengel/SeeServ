@@ -1,9 +1,0 @@
-# build
-/bin
-/logs
-
-# git
-.gitignore
-
-# docker
-*Docker*

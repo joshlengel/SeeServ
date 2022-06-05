@@ -1,3 +1,0 @@
-heroku:
-  docker:
-    web: Dockerfile
