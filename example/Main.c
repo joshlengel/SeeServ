@@ -118,7 +118,15 @@ int main(int argc, char **argv)
 
     // Listen
     handle_err("see_server_listen", see_server_listen(server));
-    fgetc(stdin);
+    
+    while (1)
+    {
+        char command[10];
+        scanf("%10s", command);
+
+        if (strcmp(command, "terminate") == 0) break;
+        else printf("Unknown command '%s'\n", command);
+    }
 
     // Clean up
     handle_err("see_server_destroy", see_server_destroy(server));
