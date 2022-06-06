@@ -17,5 +17,3 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${LIB})
 file(GLOB_RECURSE sources "${INCLUDE}/*.h" "${SRC}/*.c")
 add_library(SeeServ ${sources})
 target_include_directories(SeeServ PUBLIC ${INCLUDE})
-
-add_subdirectory(example)
